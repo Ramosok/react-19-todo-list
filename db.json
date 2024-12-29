@@ -1,0 +1,17 @@
+{
+  "tasks": [],
+  "users": [
+    {
+      "id": "aeee1e5b-9a6d-422b-a294-24b575406def",
+      "email": "ram@tut.by"
+    },
+    {
+      "id": "36c8428f-0ad4-49c1-835e-ac52f4fe41fb",
+      "email": "ram1@tut.by"
+    },
+    {
+      "id": "f889f982-874e-4038-a1de-57e9aebfa5a9",
+      "email": "ra1m@tut.by"
+    }
+  ]
+}

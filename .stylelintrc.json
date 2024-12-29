@@ -1,0 +1,30 @@
+{
+  "rules": {
+    "rule-empty-line-before": null,
+    "keyframes-name-pattern": null,
+    "alpha-value-notation": null,
+    "font-family-name-quotes": null,
+    "function-url-quotes": null,
+    "color-function-notation": "legacy",
+    "selector-pseudo-class-no-unknown": [
+      true,
+      {
+        "ignorePseudoClasses": ["global"]
+      }
+    ],
+    "selector-type-no-unknown": [
+      true,
+      {
+        "ignoreTypes": ["active"]
+      }
+    ],
+    "at-rule-no-unknown": [
+      true,
+      {
+        "ignoreAtRules": ["include", "mixin", "use", ".css"]
+      }
+    ],
+    "custom-property-pattern": "[a-z]+((\\d)|([A-Z0-9][a-z0-9]+))*([A-Z])?",
+    "custom-property-empty-line-before": null
+  }
+}
