@@ -1,1 +1,1 @@
-export { UsersPage } from "./page.tsx";
+export { UsersPage } from './page';
