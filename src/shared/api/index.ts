@@ -1,4 +1,4 @@
-const BASE_URL = 'https://ramosok.github.io/react-19-todo-list/'; // http://localhost:3001/
+const BASE_URL = 'http://localhost:3001/';
 
 export interface User {
   id: string;
@@ -6,12 +6,12 @@ export interface User {
 }
 
 export const getUsers = (): Promise<User[]> => {
-  return fetch(BASE_URL).then((res) => res.json());
+  return fetch(`${BASE_URL}users`).then((res) => res.json());
 };
 
 export const createUser = (user: User): Promise<User> => {
   // throw new Error('Not implemented');
-  return fetch(BASE_URL, {
+  return fetch(`${BASE_URL}users`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -21,7 +21,7 @@ export const createUser = (user: User): Promise<User> => {
 };
 
 export const deleteUser = (id: string): Promise<User> => {
-  return fetch(`${BASE_URL}${id}`, {
+  return fetch(`${BASE_URL}users/${id}`, {
     method: 'DELETE',
   }).then((res) => res.json());
 };
@@ -59,7 +59,7 @@ export const fetchTasks = ({
   };
 }): Promise<PaginatedResponse<Task[]>> => {
   return fetch(
-    `${BASE_URL}/tasks?_page=${page}&_per_page=${perPage}&_sort=${sortBy.createdAt === 'asc' ? 'createdAt' : '-createdAt'}&userId=${filters.userId}`,
+    `${BASE_URL}tasks?_page=${page}&_per_page=${perPage}&_sort=${sortBy.createdAt === 'asc' ? 'createdAt' : '-createdAt'}&userId=${filters.userId}`,
   )
     .then((res) => {
       return res.json();
@@ -70,7 +70,7 @@ export const fetchTasks = ({
 };
 
 export const createTask = (task: Omit<Task, 'id' | 'createdAt'>) => {
-  return fetch(BASE_URL, {
+  return fetch(`${BASE_URL}tasks`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -80,13 +80,13 @@ export const createTask = (task: Omit<Task, 'id' | 'createdAt'>) => {
 };
 
 export const deleteTask = (id: string) => {
-  return fetch(`${BASE_URL}${id}`, {
+  return fetch(`${BASE_URL}tasks/${id}`, {
     method: 'DELETE',
   }).then((res) => res.json());
 };
 
 export const updateTask = (id: string, task: Partial<Task>) => {
-  return fetch(`${BASE_URL}${id}`, {
+  return fetch(`${BASE_URL}tasks/${id}`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
