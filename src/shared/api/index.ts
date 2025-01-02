@@ -1,4 +1,4 @@
-const BASE_URL = 'https://ramosok.github.io/react-19-todo-list/'; // http://localhost:3001/
+const BASE_URL = 'https://ramosok.github.io/'; // http://localhost:3001/
 
 export interface User {
   id: string;
