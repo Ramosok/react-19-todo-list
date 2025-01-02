@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://ramosok.github.io/",
+  "homepage": "https://ramosok.github.io/react-19-todo-list/",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
