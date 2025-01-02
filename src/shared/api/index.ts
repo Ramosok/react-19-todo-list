@@ -1,15 +1,17 @@
+const BASE_URL = 'https://ramosok.github.io/react-19-todo-list/'; // http://localhost:3001/
+
 export interface User {
   id: string;
   email: string;
 }
 
 export const getUsers = (): Promise<User[]> => {
-  return fetch('http://localhost:3001/users').then((res) => res.json());
+  return fetch(BASE_URL).then((res) => res.json());
 };
 
 export const createUser = (user: User): Promise<User> => {
   // throw new Error('Not implemented');
-  return fetch('http://localhost:3001/users', {
+  return fetch(BASE_URL, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -19,7 +21,7 @@ export const createUser = (user: User): Promise<User> => {
 };
 
 export const deleteUser = (id: string): Promise<User> => {
-  return fetch(`http://localhost:3001/users/${id}`, {
+  return fetch(`${BASE_URL}${id}`, {
     method: 'DELETE',
   }).then((res) => res.json());
 };
@@ -57,7 +59,7 @@ export const fetchTasks = ({
   };
 }): Promise<PaginatedResponse<Task[]>> => {
   return fetch(
-    `http://localhost:3001/tasks?_page=${page}&_per_page=${perPage}&_sort=${sortBy.createdAt === 'asc' ? 'createdAt' : '-createdAt'}&userId=${filters.userId}`,
+    `${BASE_URL}/tasks?_page=${page}&_per_page=${perPage}&_sort=${sortBy.createdAt === 'asc' ? 'createdAt' : '-createdAt'}&userId=${filters.userId}`,
   )
     .then((res) => {
       return res.json();
@@ -68,7 +70,7 @@ export const fetchTasks = ({
 };
 
 export const createTask = (task: Omit<Task, 'id' | 'createdAt'>) => {
-  return fetch('http://localhost:3001/tasks', {
+  return fetch(BASE_URL, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -78,13 +80,13 @@ export const createTask = (task: Omit<Task, 'id' | 'createdAt'>) => {
 };
 
 export const deleteTask = (id: string) => {
-  return fetch(`http://localhost:3001/tasks/${id}`, {
+  return fetch(`${BASE_URL}${id}`, {
     method: 'DELETE',
   }).then((res) => res.json());
 };
 
 export const updateTask = (id: string, task: Partial<Task>) => {
-  return fetch(`http://localhost:3001/tasks/${id}`, {
+  return fetch(`${BASE_URL}${id}`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
