@@ -37,8 +37,9 @@ export type PaginatedResponse<T> = {
   first: number;
   items: number;
   last: number;
-  next: string | null;
   page: number;
+  next: string | null;
+  pages: number;
   prev: string | null;
 };
 
@@ -56,8 +57,14 @@ export const fetchTasks = ({
   };
 }): Promise<PaginatedResponse<Task[]>> => {
   return fetch(
-    `http://localhost:3001/tasks?_${page}&_per_page=${perPage}&_sort=${sortBy.createdAt === 'asc' ? 'createdAt' : '-createdAt'}&userId=${filters.userId}`,
-  ).then((res) => res.json());
+    `http://localhost:3001/tasks?_page=${page}&_per_page=${perPage}&_sort=${sortBy.createdAt === 'asc' ? 'createdAt' : '-createdAt'}&userId=${filters.userId}`,
+  )
+    .then((res) => {
+      return res.json();
+    })
+    .then((res) => {
+      return { ...res, page };
+    });
 };
 
 export const createTask = (task: Omit<Task, 'id' | 'createdAt'>) => {
