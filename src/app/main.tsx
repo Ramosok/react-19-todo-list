@@ -8,7 +8,7 @@ import 'src/app/index.css';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename="/react-19-todo-list/">
       <App />
     </BrowserRouter>
   </StrictMode>,
