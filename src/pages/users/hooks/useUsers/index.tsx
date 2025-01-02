@@ -1,25 +1,20 @@
-import { startTransition, use, useOptimistic, useState } from 'react';
+import { use, useOptimistic } from 'react';
 
+import { useUsersContext } from 'src/entities/user';
 import {
   CreateUserAction,
   createUserAction,
   deleteUserAction,
   DeleteUserActions,
 } from 'src/pages/users/actions';
-import { getUsers, User } from 'src/shared/api';
-
-const userPromise = getUsers();
+import { User } from 'src/shared/api';
 
 export const useUsers = (): {
   useUsersList: () => User[];
   createUserAction: CreateUserAction;
   deleteUserAction: DeleteUserActions;
 } => {
-  const [users, setUsers] = useState(userPromise);
-
-  const refetchUsers = (): void => {
-    startTransition(() => setUsers(getUsers()));
-  };
+  const { users, refetchUsers } = useUsersContext();
 
   const [createdUsers, optimisticCreate] = useOptimistic(
     [] as User[],

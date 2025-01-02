@@ -14,14 +14,9 @@ export const TaskList: FC<TaskListProps> = ({ tasksPromise, refetchTasks }) => {
 
   return (
     <div className="flex flex-col">
-      {taskList?.map(({ id, title }) => {
+      {taskList?.map((task) => {
         return (
-          <TaskCard
-            refetchTasks={refetchTasks}
-            key={id}
-            id={id}
-            title={title}
-          />
+          <TaskCard refetchTasks={refetchTasks} key={task.id} task={task} />
         );
       })}
     </div>
