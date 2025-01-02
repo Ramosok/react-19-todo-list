@@ -6,16 +6,21 @@ import { Task } from 'src/shared/api';
 interface UserCardProps {
   task: Task;
   refetchTasks: () => void;
+  onEditTask: (task: Task) => void;
 }
 
-export const TaskCard: FC<UserCardProps> = ({ task, refetchTasks }) => {
+export const TaskCard: FC<UserCardProps> = ({
+  task,
+  refetchTasks,
+  onEditTask,
+}) => {
   const [state, handleDelete, isPending] = useActionState(
     deleteTaskAction({ refetchTasks }),
     {},
   );
 
   const handleEditTask = () => {
-    console.log(task);
+    onEditTask(task);
   };
 
   return (

@@ -1,4 +1,4 @@
-import { createTask, deleteTask } from 'src/shared/api';
+import { createTask, deleteTask, Task, updateTask } from 'src/shared/api';
 
 type CreateActionsTaskState = {
   error?: string;
@@ -34,6 +34,50 @@ export const createTaskAction =
       };
 
       await createTask(task);
+      refetchTasks();
+
+      return {
+        title: '',
+      };
+    } catch (error) {
+      return {
+        error: `Error creating task ${error}`,
+        title,
+      };
+    }
+  };
+
+type UpdateActionsTaskState = {
+  error?: string;
+  title: string;
+};
+
+export type UpdateTaskAction = (
+  state: UpdateActionsTaskState,
+  formData: FormData,
+) => Promise<UpdateActionsTaskState>;
+
+export const updateTaskAction =
+  ({
+    refetchTasks,
+    task,
+  }: {
+    refetchTasks: () => void;
+    task: Task;
+  }): UpdateTaskAction =>
+  async (_prevState, formData) => {
+    const title = formData.get('title') as string;
+
+    if (!title) {
+      return { error: 'Missing required fields.', title };
+    }
+    try {
+      const newTask = {
+        ...task,
+        title,
+      };
+
+      await updateTask(newTask);
       refetchTasks();
 
       return {
