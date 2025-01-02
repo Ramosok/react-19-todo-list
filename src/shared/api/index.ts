@@ -85,8 +85,8 @@ export const deleteTask = (id: string) => {
   }).then((res) => res.json());
 };
 
-export const updateTask = (id: string, task: Partial<Task>) => {
-  return fetch(`${BASE_URL}tasks/${id}`, {
+export const updateTask = (task: Partial<Task>) => {
+  return fetch(`${BASE_URL}tasks/${task.id}`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',

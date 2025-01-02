@@ -11,16 +11,19 @@ import { fetchTasks, Task } from 'src/shared/api';
 export const TodoListPage: FC = () => {
   const { userId } = useParams();
 
+  const [task, setTask] = useState<Task | null>(null);
+
   const [tasksPaginatedPromise, setTasksPaginatedPromise] = useState(() => {
     if (userId) {
       return fetchTasks({ filters: { userId } });
     }
   });
 
-  const refetchTasks = () => {
+  const refetchTasks = async () => {
     if (userId) {
-      startTransition(async () => {
-        const tasks = await tasksPaginatedPromise;
+      const tasks = await tasksPaginatedPromise;
+      startTransition(() => {
+        setTask(null);
         setTasksPaginatedPromise(
           fetchTasks({ filters: { userId }, page: tasks?.page }),
         );
@@ -44,15 +47,29 @@ export const TodoListPage: FC = () => {
     });
   }, [tasksPaginatedPromise]) as Promise<Task[]>;
 
+  const handleEditTask = (task: Task): void => {
+    setTask(task);
+  };
+
   return (
     <main>
       <h1 className="font-black text-center text-4xl text-emerald-500">
         Tasks: <UserPreview userId={userId} />
       </h1>
-      {userId && <CreateTaskForm refetchTasks={refetchTasks} userId={userId} />}
+      {userId && (
+        <CreateTaskForm
+          task={task}
+          refetchTasks={refetchTasks}
+          userId={userId}
+        />
+      )}
       <ErrorBoundary fallbackRender={() => <div>Error Tasks</div>}>
         <Suspense>
-          <TaskList refetchTasks={refetchTasks} tasksPromise={tasksPromise} />
+          <TaskList
+            onEditTask={handleEditTask}
+            refetchTasks={refetchTasks}
+            tasksPromise={tasksPromise}
+          />
           {tasksPaginatedPromise && (
             <Pagination
               onPageChange={onPageChange}
